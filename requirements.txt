@@ -1,0 +1,6 @@
+Flask==2.2.5
+tensorflow==2.12
+keras==2.12
+numpy
+pillow
+gunicorn
