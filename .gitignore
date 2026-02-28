@@ -1,0 +1,52 @@
+# Python Environment
+venv/
+.venv/
+env/
+ENV/
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual Environment (Poetry)
+.poetry/
+poetry.lock
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Flask
+instance/
+.webassets-cache
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.env
+.env.local
+
+# Large files (keep only Kidney.h5)
+kidneymodels.keras
+*.backup
+*.old
