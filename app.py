@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import json
 import threading
+from typing import Optional, Any, Tuple, Dict
 
 # ==============================
 # FLASK SETUP
@@ -17,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Prefer common filenames present in the repository. Try multiple fallbacks so
 # deployment naming differences don't prevent model loading.
 _candidate_models = ["Kidney.h5", "kidney.h5", "kidneymodels.keras", "Kidney.keras"]
-MODEL_PATH = None
+MODEL_PATH: Optional[str] = None
 for _n in _candidate_models:
     _p = os.path.join(BASE_DIR, _n)
     if os.path.exists(_p):
@@ -29,7 +30,7 @@ if MODEL_PATH is None:
 
 # label files: try common names
 _candidate_labels = ["labels.json", "label.json", "labels.txt"]
-LABELS_PATH = None
+LABELS_PATH: Optional[str] = None
 for _n in _candidate_labels:
     _p = os.path.join(BASE_DIR, _n)
     if os.path.exists(_p):
@@ -41,11 +42,11 @@ if LABELS_PATH is None:
 # ==============================
 # LOAD MODEL
 # ==============================
-model = None
+model: Optional[Any] = None
 # lock to prevent concurrent model loads in multi-thread/process servers
 _model_lock = threading.Lock()
 
-def ensure_model_loaded():
+def ensure_model_loaded() -> Tuple[bool, Optional[str]]:
     """Ensure the global `model` is loaded. Returns (True, None) on success,
     or (False, error_message) on failure."""
     global model
@@ -104,7 +105,7 @@ if not _ok:
 # ==============================
 # LOAD LABELS
 # ==============================
-labels = None
+labels: Optional[Dict[int, str]] = None
 if os.path.exists(LABELS_PATH):
     try:
         with open(LABELS_PATH, "r") as f:
@@ -117,7 +118,7 @@ if os.path.exists(LABELS_PATH):
 # ==============================
 # PREPROCESS FUNCTION
 # ==============================
-def preprocess_image(image):
+def preprocess_image(image: Image.Image) -> Any:
     image = image.convert("RGB")
     image = image.resize((224, 224), resample=Image.BILINEAR)  # Must match training
     image = np.array(image, dtype=np.float32)
@@ -180,8 +181,8 @@ def predict():
 
 
 @app.route('/_model_debug', methods=['GET'])
-def model_debug():
-    info = {"model_loaded": model is not None}
+def model_debug() -> Any:
+    info: Dict[str, Any] = {"model_loaded": model is not None}
     try:
         info['model_path'] = MODEL_PATH
         info['model_exists'] = os.path.exists(MODEL_PATH)
