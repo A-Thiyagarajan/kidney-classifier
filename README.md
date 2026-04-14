@@ -3,9 +3,7 @@ title: Kidney Disease Classifier
 emoji: 🩸
 colorFrom: blue
 colorTo: red
-sdk: gradio
-sdk_version: 4.44.0
-app_file: app.py
+sdk: docker
 pinned: false
 ---
 
@@ -17,8 +15,19 @@ VGG16 model classifies kidney CT scans: **Cyst**, **Normal**, **Stone**, **Tumor
 Upload CT image → Instant prediction + confidence.
 
 **Tech:**
-- TensorFlow 2.13 + Keras 2.13 (NumPy 1.24 compatible)
-- Flask app.py (lazy model load → no startup crash)
+- TensorFlow 2.10 + Keras 2.10 (HF Spaces Python 3.13 compatible)
+- Flask app.py served via Dockerfile (port 7860)
 - Kidney.h5 (trained on CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone)
 
+## Deployment Instructions
+1. Create HF Space: https://huggingface.co/new-space → Name: Kidney-Classifier
+2. **SDK: Docker** (required!)
+3. Git clone Space repo locally
+4. Copy these files: `app.py`, `requirements.txt`, `Dockerfile`, `Kidney.h5`, `label.json`, `templates/index.html`
+5. `git add . && git commit -m "Fix TF deps for HF" && git push`
+6. HF auto-builds → Live at https://huggingface.co/spaces/YOURNAME/Kidney-Classifier
+
+**Local Test:** `docker build -t kidney-app . && docker run -p 7860:7860 kidney-app`
+
 [![Duplicate Space](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier/badge)](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier)
+
