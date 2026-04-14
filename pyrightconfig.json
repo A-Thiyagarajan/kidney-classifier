@@ -1,0 +1,11 @@
+{
+  "pythonVersion": "3.11",
+  "pythonPath": "C:\\Users\\WELCOME\\Desktop\\Kidney-Classify\\venv\\Scripts\\python.exe",
+  "typeCheckingMode": "off",
+  "include": ["*.py"],
+  "exclude": ["**/.*", "**/__pycache__", ".venv", "venv", "node_modules"],
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false,
+  "reportOptionalMemberAccess": false,
+  "reportAttributeAccessIssue": false
+}
