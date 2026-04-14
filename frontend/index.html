@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kidney Classifier</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+    input, button { margin: 10px 0; padding: 10px; font-size: 16px; }
+    #result { margin-top: 20px; padding: 15px; background: #f0f8ff; border: 1px solid #007bff; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+<h2>Upload Kidney Image</h2>
+
+<input type="file" id="fileInput" accept="image/*">
+<button onclick="upload()">Predict</button>
+
+<h3 id="result">Prediction will appear here...</h3>
+
+<script>
+async function upload() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) {
+        alert("Please select a file");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        document.getElementById("result").innerHTML = "Analyzing...";
+        const res = await fetch(
+            "https://thiyagu2004-kidney-classifier.hf.space/predict",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await res.json();
+        if (!res.ok) {
+            throw new Error(data.error || "Prediction failed");
+        }
+
+        const label = data.label || `Class ${data.class_index}`;
+        const confidence = data.confidence ? ` (${(data.confidence * 100).toFixed(1)}%)` : "";
+        document.getElementById("result").innerHTML = `<strong>${label}${confidence}</strong><br><small>Raw: ${JSON.stringify(data.raw.slice(0,4), null, 2)}</small>`;
+    } catch (err) {
+        document.getElementById("result").innerHTML = `<strong style="color:red;">Error: ${err.message}</strong>`;
+    }
+}
+</script>
+
+</body>
+</html>
+

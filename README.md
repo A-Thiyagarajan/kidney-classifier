@@ -19,15 +19,44 @@ Upload CT image → Instant prediction + confidence.
 - Flask app.py served via Dockerfile (port 7860)
 - Kidney.h5 (trained on CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone)
 
-## Deployment Instructions
-1. Create HF Space: https://huggingface.co/new-space → Name: Kidney-Classifier
-2. **SDK: Docker** (required!)
-3. Git clone Space repo locally
-4. Copy these files: `app.py`, `requirements.txt`, `Dockerfile`, `Kidney.h5`, `label.json`, `templates/index.html`
-5. `git add . && git commit -m "Fix TF deps for HF" && git push`
-6. HF auto-builds → Live at https://huggingface.co/spaces/YOURNAME/Kidney-Classifier
+## 🚀 Dual Deployment: HF Backend + GitHub Pages Frontend
 
-**Local Test:** `docker build -t kidney-app . && docker run -p 7860:7860 kidney-app`
+### Backend (Hugging Face Spaces)
+```
+app.py          # Flask API /predict (POST, file upload)
+requirements.txt
+Kidney.h5       # Model
+label.json      # Labels: Cyst/Normal/Stone/Tumor
+Dockerfile      # (recommended for TF deps)
+```
+**Steps:**
+1. Push to GitHub repo `A-Thiyagarajan/Kidney-Classifier`
+2. Create HF Space → Import from GitHub
+3. SDK: **Docker** (for TF 2.19)
+4. Auto-deploys → API: `https://thiyagu2004-kidney-classifier.hf.space/predict`
+
+### Frontend (GitHub Pages)
+```
+frontend/index.html  # Simple upload UI → calls HF API
+```
+**Steps:**
+1. GitHub repo Settings → Pages
+2. Source: Deploy from **main branch**, folder `/frontend`
+3. Live: `https://a-thiyagarajan.github.io/Kidney-Classifier/`
+
+### 🔄 Workflow
+```
+Single GitHub repo ─push→ HF Spaces (backend API)
+                   └─→ GitHub Pages (frontend UI)
+                              ↓
+                    Frontend calls HF /predict
+```
+
+**Update:** `git add . && git commit -m "updates" && git push origin main`
+
+**Local Test:**
+- Backend: `pip install -r requirements.txt && python app.py`
+- Frontend: Open `frontend/index.html` (edit HF URL if needed)
 
 [![Duplicate Space](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier/badge)](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier)
 

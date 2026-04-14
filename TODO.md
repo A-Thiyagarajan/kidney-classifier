@@ -1,21 +1,26 @@
-# Kidney-Classify Setup Progress
+# Kidney-Classifier Deployment TODO
 
-## Completed ✅
-- [x] Created .venv (Python 3.11.8)
-- [x] Upgraded pip in venv
-- [x] Started pip install -r requirements-fixed.txt (installing TF 2.19, Flask 2.2.5, numpy 2.1.3 - large TF download ~375MB in progress)
+## Status: 🚀 In Progress
 
-## Pending ⏳
-- [ ] Wait for pip install to complete (actively running, tensorflow installing)
-- [ ] `python check.py` (verify TF version)
-- [ ] `python test_model.py` (verify model load & predict)
-- [ ] `python app.py` (start Flask server)
+1. [✅] Create `frontend/index.html` (simple UI calling HF /predict)
+2. [✅] Update `app.py` (add CORS)
+3. [✅] Update `requirements.txt` (add flask-cors)
+4. [✅] Update `README.md` (add GitHub Pages + HF deploy instructions)
+5. [ ] Verify root files: app.py, requirements.txt, Kidney.h5, label.json
+3. [ ] Update `requirements.txt` (add flask-cors)
+4. [ ] Update `README.md` (add GitHub Pages + HF deploy instructions)
+5. [ ] Verify root files: app.py, requirements.txt, Kidney.h5, label.json
+6. [ ] Test locally: python app.py, curl POST /predict, browser frontend
+7. [ ] Ready for git push origin main && git push hf main
 
-## Instructions
-1. **Monitor pip terminal** - let tensorflow download/install finish.
-2. **Activate venv** (new terminal): `.venv\Scripts\activate.bat`
-3. **Run tests/app** once install done: `python check.py && python test_model.py && python app.py`
-4. **Access app**: http://localhost:7860
-5. **Stop server**: Ctrl+C
+**Next:** Confirm, then step 2.
 
-**Flask ModuleNotFoundError fixed once install completes!**
+2. [TODO-current] Update `app.py` (add CORS)
+3. [ ] Update `requirements.txt` (add flask-cors)
+4. [ ] Update `README.md` (add GitHub Pages + HF deploy instructions)
+5. [ ] Verify root files: app.py, requirements.txt, Kidney.h5, label.json
+6. [ ] Test locally: python app.py, curl POST /predict, browser frontend
+7. [ ] Ready for git push origin main && git push hf main
+
+**Next:** Confirm TODO.md created, then proceed to step 1.
+

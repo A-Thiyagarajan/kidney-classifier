@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import os
 import json
 import traceback
@@ -9,6 +10,7 @@ import tensorflow as tf
 print("[INFO] App loaded - FIXED: tf2.19 + LegacyInputLayer for old model")
 
 app = Flask(__name__)
+CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
