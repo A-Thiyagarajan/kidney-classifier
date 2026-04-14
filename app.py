@@ -81,6 +81,7 @@ if os.path.exists(LABELS_PATH):
         pass
 
 def preprocess_image(image_bytes: bytes) -> Any:
+    import io
     Image = lazy_import_pil()
     np = lazy_import_numpy()
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
