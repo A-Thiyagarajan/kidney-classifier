@@ -1,0 +1,6 @@
+# Original (causing NumPy crash)
+tensorflow==2.10.0
+keras==2.10.0
+numpy
+pillow
+flask

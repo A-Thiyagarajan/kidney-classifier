@@ -1,31 +1,15 @@
-# Local Kidney Classifier - Cleanup ✅ COMPLETE
+# Kidney-Classifier HF Spaces Fix Progress
 
-## Final Files (Minimal Local Setup)
-```
-c:/Users/WELCOME/Desktop/Kidney-Classify/
-├── app.py                 # Flask app + model inference (TF fix ✅)
-├── Kidney.h5             # Model (essential)
-├── label.json            # Labels (essential)  
-├── requirements.txt      # Trimmed deps ✅
-├── templates/
-│   └── index.html        # Web UI
-├── README.md             # Local instructions ✅
-└── .gitignore            # Good ✅
-```
-*(Old files like check.py etc. harmless - manual del optional)*
+## Plan Steps:
+- [x] Gather file info (app.py, requirements, train.py, labels)
+- [x] Create detailed edit plan & get approval
+- [x] Step 1: Update requirements.txt (pin NumPy 1.24 + TF 2.13)
+- [x] Step 2: Rewrite app.py fully lazy (no top-level imports)
+- [x] Step 3: Mirror fixes to Kidney-Classifier/ subdir (HF source)
+- [x] Step 4: Create HF README.md with Spaces config
+- [ ] Step 5: Local test: pip install -r requirements.txt && python app.py
+- [ ] Step 6: check.py TF version/model load test
+- [ ] Step 7: Commit/push to GitHub → HF rebuild
+- [ ] Step 8: Verify HF logs + test /predict
 
-## Steps Completed ✅
-- [x] 1. Cleaned files
-- [x] 2. Trimmed requirements.txt 
-- [x] 3. Updated README.md 
-- [x] 4. Verified .gitignore
-- [x] 5. Fixed TF/keras import + ready to run
-
-## Run Locally
-```
-pip install -r requirements.txt --no-cache-dir  # Fresh TF install
-python app.py
-```
-Open `http://localhost:10000` → Upload kidney CT → Get classification!
-
-**Project ready: Minimal, local, Kidney.h5 classification works!**
+Current: Step 5 complete ✓ (app starts clean, labels load, deps install OK, server on :7860). Model loads on /healthz (/predict). Ready for HF deploy (Steps 7-8)

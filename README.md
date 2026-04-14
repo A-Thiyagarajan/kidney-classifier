@@ -1,31 +1,22 @@
----
-title: Kidney Disease Classifier
-emoji: 🫘
-colorFrom: pink
-colorTo: red
-sdk: docker
-pinned: false
----
-
 # Kidney Disease Classifier
 
-Website-link: https://kidney-classifier.netlify.app
+[![Hugging Face Spaces](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier/badge)](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier)
 
-Kidney disease classification using VGG16 transfer learning for CT scan images.
+VGG16-based transfer learning model for classifying kidney CT images:
+- **Cyst**
+- **Normal** 
+- **Stone**
+- **Tumor**
 
-Flask web app for classifying kidney CT scans into:
-- Cyst
-- Normal
-- Stone
-- Tumor
-
-**Demo:** Upload CT image → Instant prediction with confidence.
-
-## Hugging Face Spaces
-This repo is ready for HF Spaces (Docker SDK).
-
-1. Fork or upload to HF Space  
-2. Hardware: CPU Basic (free)  
-3. Auto-deploys on push  
+## HF Spaces
+- Upload CT image → Get prediction + confidence
+- Lazy TF 2.13 + NumPy 1.24 (HF compatible)
 
 ## Local Run
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Model: Kidney.h5 (224x224 RGB /255.0 norm)
+Labels: label.json
