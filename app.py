@@ -50,7 +50,8 @@ def ensure_model_loaded() -> Tuple[bool, Optional[str]]:
             import sys, importlib
             sys.modules.setdefault('keras.src', tf.keras)
             sys.modules.setdefault('keras.src.models', tf.keras.models)
-            model_obj = tf.keras.models.load_model(MODEL_PATH, compile=False)
+            custom_objects = {'InputLayer': tf.keras.layers.InputLayer}
+            model_obj = tf.keras.models.load_model(MODEL_PATH, compile=False, custom_objects=custom_objects)
             model = model_obj
             print("[OK] Model loaded with tf.keras")
             return True, None
@@ -58,7 +59,8 @@ def ensure_model_loaded() -> Tuple[bool, Optional[str]]:
             print("tf.keras failed, trying standalone keras")
             try:
                 keras = lazy_import_keras()
-                model_obj = keras.models.load_model(MODEL_PATH, compile=False)
+                custom_objects = {'InputLayer': keras.layers.InputLayer}
+                model_obj = keras.models.load_model(MODEL_PATH, compile=False, custom_objects=custom_objects)
                 model = model_obj
                 print("[OK] Model loaded with standalone keras")
                 return True, None
