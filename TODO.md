@@ -7,8 +7,8 @@
 - [x] Step 2: Rewrite app.py fully lazy (no top-level imports)
 - [x] Step 3: Mirror fixes to Kidney-Classifier/ subdir (HF source)
 - [x] Step 4: Create HF README.md with Spaces config
-- [ ] Step 5: Local test: pip install -r requirements.txt && python app.py
-- [ ] Step 6: check.py TF version/model load test
+- [x] Step 5: Local test ✓ (deps install, app starts http://127.0.0.1:7860/healthz=200)
+- [x] Step 6: check.py → TF 2.13.0 ✓
 - [ ] Step 7: Commit/push to GitHub → HF rebuild
 - [ ] Step 8: Verify HF logs + test /predict
 
