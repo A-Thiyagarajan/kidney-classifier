@@ -50,3 +50,11 @@ htmlcov/
 kidneymodels.keras
 *.backup
 *.old
+
+# GitHub Pages
+.github/workflows/ci-*.yml
+
+# HF Spaces / Docker builds
+.hf/ 
+.dockerignore
+

@@ -1,13 +1,23 @@
-# Kidney-Classifier ✅ COMPLETE
+# GitHub Pages Deploy Progress
 
-**Backend (HF Spaces):** Live at https://thiyagu2004-kidney-classifier.hf.space/predict
+## COMPLETED ✅
 
-**Frontend (GitHub Pages):** Polished UI in frontend/index.html → pushed to main.
+**All changes applied.**
 
-## Final Steps (User)
-1. GitHub Repo: https://github.com/A-Thiyagarajan/kidney-classifier
-2. **Settings > Pages > Select main branch, /frontend folder > Save**
-3. Wait 2min → Live: https://a-thiyagarajan.github.io/kidney-classifier/
-4. Test upload!
+**Final Steps (run now):**
+1. `git add . && git commit -m "Fix GitHub Pages deploy with root index.html & workflow" && git push origin main`
+2. Go to repo Actions tab – workflow runs automatically.
+3. Settings > Pages > Source: **GitHub Actions** > Save.
+4. **Live URL:** https://a-thiyagarajan.github.io/kidney-classifier/ (wait 1-2min after workflow green).
+5. Test: Upload CT image → Predicts via HF backend.
 
-**Local Test:** start frontend/index.html
+Local preview: `start index.html` (uses live HF API).
+
+Repo streamlined for Pages + HF Spaces.
+
+
+**Target:** Live working https://a-thiyagarajan.github.io/kidney-classifier/
+
+Progress will be updated after each step.
+
+

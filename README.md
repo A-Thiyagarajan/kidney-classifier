@@ -35,20 +35,13 @@ Dockerfile      # (recommended for TF deps)
 3. SDK: **Docker** (for TF 2.19)
 4. Auto-deploys → API: `https://thiyagu2004-kidney-classifier.hf.space/predict`
 
-### Frontend (GitHub Pages) ✅ Ready
-```
-frontend/index.html  # Polished UI: drag-drop ready? No, file upload + preview + confidence bar → HF API
-```
-**Live Test (local):** `start frontend/index.html` (Windows) or open in browser.
+### Frontend (GitHub Pages) 🚀 Live!
+Now **root index.html** (standalone HTML/JS app).
 
-**Deploy Steps:**
-1. **Repo Settings > Pages**
-2. Source: **GitHub Actions** or **Deploy from branch**
-3. Branch: **main**, Folder: **/frontend**
-4. Save → deploys in ~2min.
-5. **Live:** https://a-thiyagarajan.github.io/kidney-classifier/
+[![Pages](https://github.com/A-Thiyagarajan/kidney-classifier/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/A-Thiyagarajan/kidney-classifier/actions/workflows/deploy-pages.yml)
+**Live:** https://a-thiyagarajan.github.io/kidney-classifier/
 
-**After push:** Pages auto-updates on commit to main/frontend.
+**Local Test:** Open `index.html` in browser (calls HF API).
 
 ### 🔄 Workflow
 ```
