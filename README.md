@@ -1,22 +1,24 @@
-# Kidney Disease Classifier
+---
+title: Kidney Disease Classifier
+emoji: 🩸
+colorFrom: blue
+colorTo: red
+sdk: gradio
+sdk_version: 4.44.0
+app_file: app.py
+pinned: false
+---
 
-[![Hugging Face Spaces](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier/badge)](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier)
+# Kidney Disease CT Classifier
 
-VGG16-based transfer learning model for classifying kidney CT images:
-- **Cyst**
-- **Normal** 
-- **Stone**
-- **Tumor**
+VGG16 model classifies kidney CT scans: **Cyst**, **Normal**, **Stone**, **Tumor**.
 
-## HF Spaces
-- Upload CT image → Get prediction + confidence
-- Lazy TF 2.13 + NumPy 1.24 (HF compatible)
+## HF Spaces Demo
+Upload CT image → Instant prediction + confidence.
 
-## Local Run
-```bash
-pip install -r requirements.txt
-python app.py
-```
+**Tech:**
+- TensorFlow 2.13 + Keras 2.13 (NumPy 1.24 compatible)
+- Flask app.py (lazy model load → no startup crash)
+- Kidney.h5 (trained on CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone)
 
-Model: Kidney.h5 (224x224 RGB /255.0 norm)
-Labels: label.json
+[![Duplicate Space](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier/badge)](https://huggingface.co/spaces/Thiyagu2004/Kidney-Classifier)
