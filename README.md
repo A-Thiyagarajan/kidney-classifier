@@ -15,7 +15,7 @@ VGG16 model classifies kidney CT scans: **Cyst**, **Normal**, **Stone**, **Tumor
 Upload CT image → Instant prediction + confidence.
 
 **Tech:**
-- TensorFlow 2.10 + Keras 2.10 (HF Spaces Python 3.13 compatible)
+- TensorFlow 2.19 + Keras 3
 - Flask app.py served via Dockerfile (port 7860)
 - Kidney.h5 (trained on CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone)
 

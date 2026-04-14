@@ -6,7 +6,10 @@ import threading
 from typing import Optional, Any, Tuple, Dict
 import tensorflow as tf
 
-print("[INFO] App loaded - FIXED: tf2.19 + LegacyInputLayer for old model")
+print("TF version:", tf.__version__)
+print("Keras location:", tf.keras.__file__)
+
+print("[INFO] App loaded - Direct tf.keras 2.19 load with legacy InputLayer wrapper")
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
@@ -21,7 +24,8 @@ _model_lock = threading.Lock()
 class LegacyInputLayer(tf.keras.layers.InputLayer):
     def __init__(self, **kwargs):
         if 'batch_shape' in kwargs:
-            kwargs['input_shape'] = kwargs.pop('batch_shape')[1:]
+            shape = kwargs.pop('batch_shape')
+            kwargs['input_shape'] = shape[1:]
         super().__init__(**kwargs)
 
 def ensure_model_loaded() -> Tuple[bool, Optional[str]]:
@@ -29,43 +33,42 @@ def ensure_model_loaded() -> Tuple[bool, Optional[str]]:
     if model is not None:
         return True, None
     with _model_lock:
-        print(f"[DEBUG] Model load: {MODEL_PATH}")
-        print(f"[DEBUG] File: exists={os.path.exists(MODEL_PATH)}, size={os.path.getsize(MODEL_PATH) if os.path.exists(MODEL_PATH) else 0}")
+        print(f"[DEBUG] Attempting model load - path: {MODEL_PATH}")
+        print(f"[DEBUG] File exists: {os.path.exists(MODEL_PATH)}, size: {os.path.getsize(MODEL_PATH) if os.path.exists(MODEL_PATH) else 0}")
         if model is not None:
             return True, None
         try:
-            print(f"[DEBUG] TF: {tf.__version__}, Keras: {tf.keras.__file__}")
+            print(f"[DEBUG] TF version: {tf.__version__}")
             custom_objects = {'InputLayer': LegacyInputLayer}
             model_obj = tf.keras.models.load_model(MODEL_PATH, compile=False, custom_objects=custom_objects)
             model = model_obj
-            print("[OK] Model loaded!")
+            print("[OK] Model loaded with tf.keras + LegacyInputLayer")
             return True, None
         except Exception as e:
-            print(f"[ERROR] Load failed: {str(e)}")
+            print(f"[ERROR] Model load failed: {str(e)}")
+            print("[DEBUG] Traceback:")
             traceback.print_exc()
             return False, str(e)
 
-labels = None
+# Labels
+labels: Optional[Dict[int, str]] = None
 if os.path.exists(LABELS_PATH):
     try:
         with open(LABELS_PATH, 'r') as f:
             labels_data = json.load(f)
             labels = {int(k): v for k, v in labels_data.items()}
-        print(f"[OK] Labels: {labels}")
-    except:
+        print("[OK] Labels loaded:", labels)
+    except Exception:
         pass
 
-def preprocess_image(image_bytes):
+def preprocess_image(image_bytes: bytes) -> Any:
     import io
     from PIL import Image
     import numpy as np
-    print("[DEBUG] Preprocess start")
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    image = image.resize((224, 224))
+    image = image.resize((224, 224), Image.BILINEAR)
     image = np.array(image, dtype=np.float32) / 255.0
-    processed = np.expand_dims(image, 0)
-    print(f"[DEBUG] Preprocess OK, shape: {processed.shape}")
-    return processed
+    return np.expand_dims(image, 0)
 
 @app.route("/")
 def index():
@@ -77,40 +80,36 @@ def favicon():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    print("[DEBUG] Predict start")
     ok, err = ensure_model_loaded()
     if not ok:
-        return jsonify({"error": "Model failed", "details": err}), 500
+        return jsonify({"error": "Model load failed", "details": err}), 500
 
     import numpy as np
     try:
-        print("[DEBUG] File check")
         if 'file' not in request.files:
             return jsonify({"error": "No file"}), 400
         file = request.files['file']
-        if not file.filename:
+        if file.filename == "":
             return jsonify({"error": "No filename"}), 400
-        print(f"[DEBUG] File OK: {file.filename}")
 
         processed = preprocess_image(file.read())
-        print("[DEBUG] Model predict")
         prediction = model.predict(processed, verbose=0)
-        print(f"[DEBUG] Prediction shape: {prediction.shape}")
-
+        
         pred_class = int(np.argmax(prediction[0]))
         confidence = float(np.max(prediction[0]))
         
         resp = {
             "class_index": pred_class,
             "confidence": round(confidence, 4),
-            "raw": prediction[0].tolist()
+            "raw": prediction.tolist()
         }
-        if labels:
-            resp["label"] = labels.get(pred_class, "Unknown")
-        print(f"[OK] PREDICTION: {resp['label']} ({confidence:.2%})")
+        if labels and pred_class in labels:
+            resp["label"] = labels[pred_class]
+        print(f"[OK] Prediction: class={pred_class}, label={resp.get('label')}, confidence={confidence}")
         return jsonify(resp)
     except Exception as e:
-        print(f"[ERROR] Predict failed: {str(e)}")
+        print(f"[ERROR] Prediction failed: {str(e)}")
+        print("[DEBUG] Prediction traceback:")
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 

@@ -1,15 +1,21 @@
-# Kidney-Classifier HF Spaces Fix Progress
+# Kidney-Classify Setup Progress
 
-## Plan Status:
-- [x] Step 1: Updated requirements.txt with HF-safe TensorFlow 2.10.0 pins
-- [x] Step 2: Updated Kidney-Classifier/requirements.txt identically
-- [x] Step 3: Updated README.md with HF Spaces Docker deployment instructions
-- [x] Step 4: Local test successful - dependencies install clean, app.py starts on http://127.0.0.1:7860 (model/labels lazy-load OK)
+## Completed ✅
+- [x] Created .venv (Python 3.11.8)
+- [x] Upgraded pip in venv
+- [x] Started pip install -r requirements-fixed.txt (installing TF 2.19, Flask 2.2.5, numpy 2.1.3 - large TF download ~375MB in progress)
 
-## Remaining Steps:
-- [ ] Step 5: Push updated files to HF Space repo → trigger rebuild (should now succeed with TF 2.10.0)
+## Pending ⏳
+- [ ] Wait for pip install to complete (actively running, tensorflow installing)
+- [ ] `python check.py` (verify TF version)
+- [ ] `python test_model.py` (verify model load & predict)
+- [ ] `python app.py` (start Flask server)
 
-**Ready for HF deployment! Files fixed for Spaces Docker build.**
+## Instructions
+1. **Monitor pip terminal** - let tensorflow download/install finish.
+2. **Activate venv** (new terminal): `.venv\Scripts\activate.bat`
+3. **Run tests/app** once install done: `python check.py && python test_model.py && python app.py`
+4. **Access app**: http://localhost:7860
+5. **Stop server**: Ctrl+C
 
-
-
+**Flask ModuleNotFoundError fixed once install completes!**
