@@ -1,22 +1,19 @@
-# GitHub Pages Frontend for Kidney Classifier
+# GitHub Pages Frontend ✅ READY
 
-✅ **Step 1 Complete**: frontend/index.html polished (labels, confidence bar, spinner, responsive).
+All code changes complete & pushed.
 
-Status: ✅ 7/8 steps → Almost Ready
+| Step | Status |
+|------|--------|
+| 1. Polish index.html | ✅ |
+| 2. Update README.md | ✅ |
+| 3. Update TODO.md | ✅ |
+| 4. Git commit | ✅ |
+| 5. Push origin main | ✅ |
 
-## Remaining Steps
+## User Action Required
+1. Go to https://github.com/A-Thiyagarajan/kidney-classifier/settings/pages
+2. **Branch: main, Folder: /frontend** → Save
+3. **Live URL:** https://a-thiyagarajan.github.io/kidney-classifier/
+4. Test: Upload kidney CT image → Prediction!
 
-1. [✅] Polish frontend/index.html
-2. [ ] **Update README.md**: Enhance Pages instructions.
-3. [ ] Update TODO.md (mark frontend).
-4. [ ] Git setup/commit.
-5. [ ] Push to GitHub.
-6. [ ] Enable Pages in repo Settings.
-7. [ ] Test live site.
-8. [ ] Done!
-
-**Next**: Step 2 - README.md update.
-
-**Test now**: Double-click kidney-classifier/frontend/index.html → upload CT image → should call HF API & show prediction.
-
-
+**Local verify:** Open kidney-classifier/frontend/index.html in browser now.
